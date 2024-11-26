@@ -13,6 +13,13 @@ public class Libro {
     private String titulo;
     private String autor;
     private boolean Disponibilidad;
+    
+    public Libro(String clave, String titulo, String autor, boolean Disponibilidad) {
+        this.clave = clave;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.Disponibilidad = Disponibilidad;
+    }
 
     public String getClave() {
         return clave;
@@ -45,7 +52,8 @@ public class Libro {
     public void setDisponibilidad(boolean Disponibilidad) {
         this.Disponibilidad = Disponibilidad;
     }
-
+    
+    
     @Override
     public String toString() {
         return "Libro{" + "clave=" + clave + ", titulo=" + titulo + ", autor=" + autor + ", Disponibilidad=" + Disponibilidad + '}';
