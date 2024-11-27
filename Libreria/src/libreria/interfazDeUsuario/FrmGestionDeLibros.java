@@ -154,11 +154,11 @@ public class FrmGestionDeLibros extends javax.swing.JFrame {
         String titulo=txtTitulo.getText(), autor=txtAutor.getText();
         String clave=(libros.size()+1)+"";
         while(clave.length()<4)clave="0"+clave;
-        DefaultTableModel modelo = (DefaultTableModel)tbLibros.getModel();
-        modelo.addRow(new Object[]{clave,titulo,autor,"Disponible"});
-        tbLibros.setModel(modelo);
         try{
-            ManejadorArchivos.agregarObjeto("Libros.poo", new Libro(clave,titulo,autor,true));            
+            ManejadorArchivos.agregarObjeto("Libros.poo", new Libro(clave,titulo,autor,true));
+            DefaultTableModel modelo = (DefaultTableModel)tbLibros.getModel();
+            modelo.addRow(new Object[]{clave,titulo,autor,"Disponible"});
+            tbLibros.setModel(modelo);            
         }catch(ClassNotFoundException ex){
             System.out.println("when");
         }
