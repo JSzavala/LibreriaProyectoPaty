@@ -4,21 +4,24 @@
  */
 package libreria.Procesamiento;
 
+import java.io.Serializable;
+
 /**
  *
  * @author PC
  */
 public class Libro implements Serializable {
+    public static final long serialVersionUID=1;
     private String clave;
     private String titulo;
     private String autor;
-    private boolean Disponibilidad;
+    private boolean disponibilidad;
     
-    public Libro(String clave, String titulo, String autor, boolean Disponibilidad) {
+    public Libro(String clave, String titulo, String autor, boolean disponibilidad) {
         this.clave = clave;
         this.titulo = titulo;
         this.autor = autor;
-        this.Disponibilidad = Disponibilidad;
+        this.disponibilidad = disponibilidad;
     }
 
     public String getClave() {
@@ -36,7 +39,7 @@ public class Libro implements Serializable {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
+// WHEN MODIFICAS JAJAJJSJSJSJSJJ
     public String getAutor() {
         return autor;
     }
@@ -46,17 +49,20 @@ public class Libro implements Serializable {
     }
 
     public boolean isDisponibilidad() {
-        return Disponibilidad;
+        return disponibilidad;
     }
 
-    public void setDisponibilidad(boolean Disponibilidad) {
-        this.Disponibilidad = Disponibilidad;
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
     }
     
+    public Object[] toArray(){
+        return new Object[]{clave, titulo, autor, (disponibilidad==true?"Disponible":"No disponible")};
+    }
     
     @Override
     public String toString() {
-        return "Libro{" + "clave=" + clave + ", titulo=" + titulo + ", autor=" + autor + ", Disponibilidad=" + Disponibilidad + '}';
+        return "Libro{" + "clave=" + clave + ", titulo=" + titulo + ", autor=" + autor + ", Disponibilidad=" + disponibilidad + '}';
     }
     
 }

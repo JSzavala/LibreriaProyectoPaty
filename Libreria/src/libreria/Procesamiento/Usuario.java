@@ -9,6 +9,7 @@ package libreria.Procesamiento;
  * @author PC
  */
 public class Usuario {
+    public static final long serialVersionUID=3;
     private String clave;
     private String nombre;
     private String apellidos;

@@ -11,6 +11,7 @@ import java.time.LocalDate;
  * @author PC
  */
 public class Prestamo {
+    public static final long serialVersionUID=2;
     private String claveLibro;
     private String claveUsuario;
     private boolean devuelto;
