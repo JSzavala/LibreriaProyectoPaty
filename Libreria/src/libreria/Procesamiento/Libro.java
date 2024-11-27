@@ -8,7 +8,7 @@ package libreria.Procesamiento;
  *
  * @author PC
  */
-public class Libro {
+public class Libro implements Serializable {
     private String clave;
     private String titulo;
     private String autor;
