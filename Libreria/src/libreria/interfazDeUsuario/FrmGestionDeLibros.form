@@ -39,8 +39,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtfielAutor" min="-2" pref="172" max="-2" attributes="0"/>
-                          <Component id="txtfielTitulo" min="-2" pref="172" max="-2" attributes="0"/>
+                          <Component id="txtAutor" min="-2" pref="172" max="-2" attributes="0"/>
+                          <Component id="txtTitulo" min="-2" pref="172" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -65,9 +65,9 @@
                               <Component id="lblAutor" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="txtfielTitulo" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTitulo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtfielAutor" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtAutor" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -119,9 +119,9 @@
         <Property name="text" type="java.lang.String" value="Autor:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtfielTitulo">
+    <Component class="javax.swing.JTextField" name="txtTitulo">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtfielAutor">
+    <Component class="javax.swing.JTextField" name="txtAutor">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

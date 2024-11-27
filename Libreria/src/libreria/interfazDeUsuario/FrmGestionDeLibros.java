@@ -11,14 +11,14 @@ import libreria.Procesamiento.*;
  * @author quiro
  */
 public class FrmGestionDeLibros extends javax.swing.JFrame {
-
+    private ArrayList<Object> libros;
     /**
      * Creates new form FrmGestionDeLibros
      */
     public FrmGestionDeLibros() {
         initComponents();
         try{
-            ArrayList<Object> libros=ManejadorArchivos.leerArchivo("Libros.poo");
+            libros=ManejadorArchivos.leerArchivo("Libros.poo");
             DefaultTableModel modelo = (DefaultTableModel)tbLibros.getModel();
             for(Object obj: libros){
                 modelo.addRow(((Libro)obj).toArray());
@@ -46,8 +46,8 @@ public class FrmGestionDeLibros extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         lblAutor = new javax.swing.JLabel();
-        txtfielTitulo = new javax.swing.JTextField();
-        txtfielAutor = new javax.swing.JTextField();
+        txtTitulo = new javax.swing.JTextField();
+        txtAutor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbLibros = new javax.swing.JTable();
 
@@ -110,8 +110,8 @@ public class FrmGestionDeLibros extends javax.swing.JFrame {
                             .addComponent(lblAutor))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfielAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtfielTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -130,9 +130,9 @@ public class FrmGestionDeLibros extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblAutor))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtfielTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtfielAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregar)
@@ -151,7 +151,17 @@ public class FrmGestionDeLibros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        
+        String titulo=txtTitulo.getText(), autor=txtAutor.getText();
+        String clave=(libros.size()+1)+"";
+        while(clave.length()<4)clave="0"+clave;
+        DefaultTableModel modelo = (DefaultTableModel)tbLibros.getModel();
+        modelo.addRow(new Object[]{clave,titulo,autor,"Disponible"});
+        tbLibros.setModel(modelo);
+        try{
+            ManejadorArchivos.agregarObjeto("Libros.poo", new Libro(clave,titulo,autor,true));            
+        }catch(ClassNotFoundException ex){
+            System.out.println("when");
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
@@ -197,7 +207,7 @@ public class FrmGestionDeLibros extends javax.swing.JFrame {
     private javax.swing.JLabel lblGestionarLibros;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tbLibros;
-    private javax.swing.JTextField txtfielAutor;
-    private javax.swing.JTextField txtfielTitulo;
+    private javax.swing.JTextField txtAutor;
+    private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
