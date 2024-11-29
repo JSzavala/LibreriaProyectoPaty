@@ -3,34 +3,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package libreria.Procesamiento;
-
 import java.util.ArrayList;
+
 public class Leer {
 
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ClassNotFoundException {
-        // TODO code application logic here
-        ArrayList<Object> libros = ManejadorArchivos.leerArchivo("Libros.poo");
+        ArrayList<Object> solicitantes = ManejadorArchivos.leerArchivo("Solicitantes.poo");
         // tiratodoyaya
-        if(libros != null){
-            for(int i = libros.size()-1; i >= 0; i--) {
-                ManejadorArchivos.eliminarObjeto("Libros.poo", i);
+        if (solicitantes != null) {
+            for (int i = solicitantes.size() - 1; i >= 0; i--) {
+                ManejadorArchivos.eliminarObjeto("Solicitantes.poo", i);
             }
-        }
-        //ola(sobreescribe*)
-        ArrayList<Object> nuevosLibros = new ArrayList<>();
-        nuevosLibros.add(new Libro("001", "Los malaventuradosnolloranPollos", "Ales", true));
-        nuevosLibros.add(new Libro("002", "La sociedad de los pollos", "Ales", true));
-
-        for(Object libro : nuevosLibros) {
-            ManejadorArchivos.agregarObjeto("Libros.poo", libro);
-            System.out.println(libro);
+            System.out.println("que");
         }
         
+        //ola(sobreescribe*)
+        Solicitantes jiji = new Solicitantes("jiji");
+
+        ArrayList<Object> nuevosSolicitantes = new ArrayList<>();
+        nuevosSolicitantes.add(new Solicitantes("robesgay"));
+        nuevosSolicitantes.add(new Solicitantes("paque"));
+        
+        for (Object soli : nuevosSolicitantes) {
+            ManejadorArchivos.agregarObjeto("Solicitantes.poo", soli);
+            System.out.println(soli);
+        }
         System.out.println("-------------------------------");
     }
-    
+
 }

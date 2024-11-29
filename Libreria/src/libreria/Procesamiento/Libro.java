@@ -12,24 +12,14 @@ import java.io.Serializable;
  */
 public class Libro implements Serializable {
     public static final long serialVersionUID=1;
-    private String clave;
     private String titulo;
     private String autor;
     private boolean disponibilidad;
     
-    public Libro(String clave, String titulo, String autor, boolean disponibilidad) {
-        this.clave = clave;
+    public Libro(String titulo, String autor, boolean disponibilidad) {
         this.titulo = titulo;
         this.autor = autor;
         this.disponibilidad = disponibilidad;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
     }
 
     public String getTitulo() {
@@ -57,12 +47,12 @@ public class Libro implements Serializable {
     }
     
     public Object[] toArray(){
-        return new Object[]{clave, titulo, autor, (disponibilidad==true?"Disponible":"No disponible")};
+        return new Object[]{titulo, autor, (disponibilidad==true?"Disponible":"No disponible")};
     }
     
     @Override
     public String toString() {
-        return "Libro{" + "clave=" + clave + ", titulo=" + titulo + ", autor=" + autor + ", Disponibilidad=" + disponibilidad + '}';
+        return titulo;
     }
     
 }

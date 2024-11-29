@@ -4,24 +4,17 @@
  */
 package libreria.Procesamiento;
 
+import java.io.Serializable;
+
 /**
  *
  * @author PC
  */
-public class Usuario {
+public class Usuario implements Serializable{
     public static final long serialVersionUID=3;
-    private String clave;
     private String nombre;
     private String apellidos;
     private String contrasenaEncriptada;
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
 
     public String getNombre() {
         return nombre;
@@ -49,7 +42,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario" + "clave=" + clave + ", nombre=" + nombre + ", apellidos=" + apellidos + ", contrasenaEncriptada=" + contrasenaEncriptada;
+        return "nombre=" + nombre + ", apellidos=" + apellidos + ", contrasenaEncriptada=" + contrasenaEncriptada;
     }
     
     

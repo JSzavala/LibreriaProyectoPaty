@@ -4,38 +4,47 @@
  */
 package libreria.Procesamiento;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
  * @author PC
  */
-public class Prestamo {
+public class Prestamo implements Serializable{
     public static final long serialVersionUID=2;
-    private String claveLibro;
-    private String claveUsuario;
+    private ArrayList<Object> nombresLibro;
+    private Object nombreUsuario;
     private boolean devuelto;
     private LocalDate fechaPrestamo;
-    private LocalDate fechaRegreso;
+    private ArrayList<Object> fechaRegreso;
 
-    
-    public String getClaveLibro() {
-        return claveLibro;
+    public Prestamo(ArrayList<Object> nombresLibro, Object nombreUsuario, boolean devuelto, LocalDate fechaPrestamo, ArrayList<Object> fechaRegreso) {
+        this.nombresLibro = nombresLibro;
+        this.nombreUsuario = nombreUsuario;
+        this.devuelto = devuelto;
+        this.fechaPrestamo = fechaPrestamo;
+        this.fechaRegreso = fechaRegreso;
     }
 
-    public void setClaveLibro(String claveLibro) {
-        this.claveLibro = claveLibro;
+    public ArrayList<Object> getNombresLibro() {
+        return nombresLibro;
     }
 
-    public String getClaveUsuario() {
-        return claveUsuario;
+    public void setNombresLibro(ArrayList<Object> nombresLibro) {
+        this.nombresLibro = nombresLibro;
     }
 
-    public void setClaveUsuario(String claveUsuario) {
-        this.claveUsuario = claveUsuario;
+    public Object getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public boolean isDevuelto() {
+    public void setNombreUsuario(Object nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public boolean getDevuelto() {
         return devuelto;
     }
 
@@ -51,17 +60,21 @@ public class Prestamo {
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public LocalDate getFechaRegreso() {
+    public ArrayList<Object> getFechaRegreso() {
         return fechaRegreso;
     }
 
-    public void setFechaRegreso(LocalDate fechaRegreso) {
+    public void setFechaRegreso(ArrayList<Object> fechaRegreso) {
         this.fechaRegreso = fechaRegreso;
     }
-
-    @Override
-    public String toString() {
-        return "Prestamo{" + "claveLibro=" + claveLibro + ", claveUsuario=" + claveUsuario + ", devuelto=" + devuelto + ", fechaPrestamo=" + fechaPrestamo + ", fechaRegreso=" + fechaRegreso + '}';
+    
+    public Object[] toArray(){
+        return new Object[]{nombresLibro,nombreUsuario,devuelto,fechaPrestamo,fechaRegreso};
     }
+    
+    /*@Override
+    public String toString() {
+        return "Prestamo{" + "claveLibro=" + nombreLibro + ", claveUsuario=" + nombreUsuario + ", devuelto=" + devuelto + ", fechaPrestamo=" + fechaPrestamo + ", fechaRegreso=" + fechaRegreso + '}';
+    }*/
     
 }

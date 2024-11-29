@@ -79,11 +79,11 @@ public class FrmGestionDeLibros extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Clave", "Titulo", "Autor", "Disponibilidad"
+                "Titulo", "Autor", "Disponibilidad"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -134,7 +134,7 @@ public class FrmGestionDeLibros extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAgregar)
                             .addComponent(btnCancelar))
                         .addGap(0, 77, Short.MAX_VALUE))
@@ -152,12 +152,10 @@ public class FrmGestionDeLibros extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         String titulo=txtTitulo.getText(), autor=txtAutor.getText();
-        String clave=(libros.size()+1)+"";
-        while(clave.length()<4)clave="0"+clave;
         try{
-            ManejadorArchivos.agregarObjeto("Libros.poo", new Libro(clave,titulo,autor,true));
+            ManejadorArchivos.agregarObjeto("Libros.poo", new Libro(titulo,autor,true));
             DefaultTableModel modelo = (DefaultTableModel)tbLibros.getModel();
-            modelo.addRow(new Object[]{clave,titulo,autor,"Disponible"});
+            modelo.addRow(new Object[]{titulo,autor,"Disponible"});
             tbLibros.setModel(modelo);            
         }catch(ClassNotFoundException ex){
             System.out.println("when");
