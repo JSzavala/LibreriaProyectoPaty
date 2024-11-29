@@ -4,10 +4,11 @@
  */
 package libreria.interfazDeUsuario;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import libreria.Procesamiento.ManejadorArchivos;
-import libreria.Procesamiento.Prestamo;
+import libreria.Procesamiento.*;
 
 /**
  *
@@ -20,9 +21,9 @@ public class FrmConsultaDePrestamos extends javax.swing.JFrame {
      */
     public FrmConsultaDePrestamos() {
         initComponents();
-        ArrayList <Object> prestamos;
+        ArrayList<Object> prestamos;
         //cbSolicitante.addItem(item);
-        try{
+        /*try{
             prestamos=ManejadorArchivos.leerArchivo("Prestamos.poo");
             DefaultTableModel modelo = (DefaultTableModel)tbConsultas.getModel();
             for(Object obj: prestamos){
@@ -33,8 +34,22 @@ public class FrmConsultaDePrestamos extends javax.swing.JFrame {
             
         }catch(NullPointerException ex){
             
-        }
+        }*/
 
+    }
+
+    private Object autorDe(Object titulo) {
+        try {
+            ArrayList lista = ManejadorArchivos.leerArchivo("Libros.poo");
+            for (Object obj : lista) {
+                if (((Libro) obj).getTitulo().equals(titulo)) {
+                    return ((Libro) obj).getAutor();
+                }
+            }
+        } catch (Exception ex) {
+            //coso de que no se encontro nadota, luego lo vemos ñañañañ
+        }
+        return null;
     }
 
     /**
@@ -161,9 +176,59 @@ public class FrmConsultaDePrestamos extends javax.swing.JFrame {
         gestionarPrestamos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGestionarPrestamosActionPerformed
-
+    private void validMesYDia(int dia, int mes, int anio) throws InvalidDateFormat {
+        if (dia > 31 || dia < 1) {
+            throw new InvalidDateFormat("?");
+        }
+        if (mes < 1 || mes > 12) {
+            throw new InvalidDateFormat("?");
+        }
+        if (dia > 30 && (mes == 2 || mes == 4 || mes == 6 || mes == 9 || mes == 11)) {
+            throw new InvalidDateFormat("?");
+        }
+        if (dia > 29 && mes == 2) {
+            throw new InvalidDateFormat("?");
+        }
+        if (anio < LocalDate.now().getYear()) {
+            throw new InvalidDateFormat("?");
+        }
+    }
     private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
-        
+        LocalDate fechaBusca = null;
+        try {
+            String fecha = txtFecha.getText();
+            DateTimeFormatter form = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String[] dma = fecha.split("-");
+            validMesYDia(Integer.parseInt(dma[0]), Integer.parseInt(dma[1]), Integer.parseInt(dma[2]));
+            fechaBusca = LocalDate.parse(fecha, form);
+        } catch (InvalidDateFormat ex) {
+            //notificacion de error
+            System.out.println("fecha");
+        }
+        if (fechaBusca != null) {
+            try {
+                ArrayList<Object> prestamos = ManejadorArchivos.leerArchivo("Prestamos.poo");
+                for (Object obj : prestamos) {
+                    System.out.println(((Prestamo) (obj)).getFechaPrestamo()+" "+fechaBusca);
+                    if (((Prestamo) (obj)).getFechaPrestamo().equals(fechaBusca)) {
+                        System.out.println("????");
+                        DefaultTableModel modelo = (DefaultTableModel) tbConsultas.getModel();
+                        ArrayList<Object> titulos, fechas;
+                        titulos = ((Prestamo) (obj)).getNombresLibro();
+                        fechas = ((Prestamo) (obj)).getFechaRegreso();
+                        Object prop = ((Prestamo) (obj)).getNombreUsuario();
+                        for (int i = 0; i < ((Prestamo) (obj)).getNombresLibro().size(); i++) {
+                            modelo.addRow(new Object[]{titulos.get(i), autorDe(titulos.get(i)),
+                                ((Prestamo) (obj)).getFechaPrestamo(), fechas.get(i)});
+                            break;
+                        }
+                        tbConsultas.setModel(modelo);
+                    }
+                }
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnVerActionPerformed
 
     /**

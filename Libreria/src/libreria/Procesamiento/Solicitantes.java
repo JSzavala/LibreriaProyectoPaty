@@ -23,4 +23,8 @@ public class Solicitantes implements Serializable{
     public void setNombre(String Nombre) {
         this.nombre = Nombre;
     }
+    @Override
+    public String toString (){
+        return nombre;
+    }
 }

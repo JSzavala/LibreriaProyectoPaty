@@ -3,11 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package libreria.interfazDeUsuario;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import libreria.Procesamiento.*;
+
 /**
  *
  * @author quiro
@@ -19,50 +21,52 @@ public class FrmGestionDePrestamos extends javax.swing.JFrame {
      */
     public FrmGestionDePrestamos() {
         initComponents();
-        ArrayList <Object> prestamos;
-        ArrayList <Object> libros;
-        ArrayList <Object> solicitantes;
+        ArrayList<Object> prestamos;
+        ArrayList<Object> libros;
+        ArrayList<Object> solicitantes;
         //cbSolicitante.addItem(item);
-        try{
-            prestamos=ManejadorArchivos.leerArchivo("Prestamos.poo");
-            DefaultTableModel modelo = (DefaultTableModel)tbPrestamo.getModel();
-            for(Object obj: prestamos){
-                Prestamo prestamo=(Prestamo)obj;
+        /*try {
+            prestamos = ManejadorArchivos.leerArchivo("Prestamos.poo");
+            DefaultTableModel modelo = (DefaultTableModel) tbPrestamo.getModel();
+            for (Object obj : prestamos) {
+                Prestamo prestamo = (Prestamo) obj;
                 ArrayList<Object> titulos, fechas;
                 boolean devuelto;
-                titulos=prestamo.getNombresLibro();
-                fechas=prestamo.getFechaRegreso();
-                devuelto=prestamo.getDevuelto();
-                for(int i=0; i<titulos.size(); i++){
-                    System.out.println(titulos.get(i)+" "+fechas.get(i));
-                    modelo.addRow(new Object[]{titulos.get(i),fechas.get(i),(devuelto==true?"Disponible":"No disponible")});
+                titulos = prestamo.getNombresLibro();
+                fechas = prestamo.getFechaRegreso();
+                devuelto = prestamo.getDevuelto();
+                for (int i = 0; i < titulos.size(); i++){
+                    System.out.println(titulos.get(i) + " " + fechas.get(i));
+                    modelo.addRow(new Object[]{titulos.get(i), fechas.get(i), (devuelto == true ? "Disponible" : "No disponible")});
                 }
             }
             tbPrestamo.setModel(modelo);
-        }catch(ClassNotFoundException ex){
-            
-        }catch(NullPointerException ex){
-            
-        }
+        } catch (ClassNotFoundException ex) {
+
+        } catch (NullPointerException ex) {
+
+        }*/
         //Quiza sea mejor idea poner todo esto en el mismo try,
         //pero que f l o j e r a
-        try{
-            libros=ManejadorArchivos.leerArchivo("Libros.poo");
-            for(Object obj: libros){
-                if(((Libro)obj).isDisponibilidad())cbLibro.addItem(((Libro)obj).toString());
+        try {
+            libros = ManejadorArchivos.leerArchivo("Libros.poo");
+            for (Object obj : libros) {
+                if (((Libro) obj).isDisponibilidad()) {
+                    cbLibro.addItem(((Libro) obj).toString());
+                }
             }
-        }catch(ClassNotFoundException ex){
-            
-        }catch(NullPointerException ex){
-            
+        } catch (ClassNotFoundException ex) {
+
+        } catch (NullPointerException ex) {
+
         }
-        try{
-            solicitantes=ManejadorArchivos.leerArchivo("Solicitantes.poo");
-            for(Object obj: solicitantes){
-                cbSolicitante.addItem(((Solicitantes)obj).toString());
+        try {
+            solicitantes = ManejadorArchivos.leerArchivo("Solicitantes.poo");
+            for (Object obj : solicitantes) {
+                cbSolicitante.addItem(((Solicitantes) obj).toString());
             }
-        }catch(ClassNotFoundException ex){
-            
+        } catch (ClassNotFoundException ex) {
+
         }
     }
 
@@ -205,8 +209,8 @@ public class FrmGestionDePrestamos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- 
-    
+
+
     private void btnInformeConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeConsultasActionPerformed
         // TODO add your handling code here:
         FrmConsultaDePrestamos consultaDePrestamos = new FrmConsultaDePrestamos();
@@ -215,46 +219,65 @@ public class FrmGestionDePrestamos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInformeConsultasActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-         //Se necesita agregar un try catch que verifique que la fecha sea valida, ojopiojo
-         LocalDate fechaLimite=null;
-         try{
-            String fecha=txtFechaLimite.getText();
-            DateTimeFormatter form=DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            String[] dma=fecha.split("-"); 
-            validMesYDia(Integer.parseInt(dma[0]),Integer.parseInt(dma[1]),Integer.parseInt(dma[2]));
-            fechaLimite = LocalDate.parse(fecha, form);
-         }catch(InvalidDateFormat ex){
-            //notificacion de error
-             System.out.println("fecha");
-         }
-        if(fechaLimite!=null){
-            DefaultTableModel modelo = (DefaultTableModel)tbPrestamo.getModel();
-            modelo.addRow(new Object[]{cbLibro.getSelectedItem(),fechaLimite,"No disponible"});
-            tbPrestamo.setModel(modelo);
+        boolean aux=false;
+        for (int i = 0; i < tbPrestamo.getModel().getRowCount(); i++) {
+            if(cbLibro.getSelectedItem()==(tbPrestamo.getModel().getValueAt(i, 0))){
+                    aux=true;
+                    break;
+                }
+            }
+        if(!aux){
+            LocalDate fechaLimite = null;
+            try {
+                String fecha = txtFechaLimite.getText();
+                DateTimeFormatter form = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                String[] dma = fecha.split("-");
+                validMesYDia(Integer.parseInt(dma[0]), Integer.parseInt(dma[1]), Integer.parseInt(dma[2]));
+                fechaLimite = LocalDate.parse(fecha, form);
+            } catch (InvalidDateFormat ex) {
+                //notificacion de error
+                System.out.println("fecha");
+            }
+            if (fechaLimite != null){
+                DefaultTableModel modelo = (DefaultTableModel) tbPrestamo.getModel();
+                modelo.addRow(new Object[]{cbLibro.getSelectedItem(), fechaLimite, "No disponible"});
+                tbPrestamo.setModel(modelo);
+            }     
         }
-        
+
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        ArrayList<Object> titulos=new ArrayList<>();
-        ArrayList<Object> fechas=new ArrayList<>();
-        for(int i=0; i<tbPrestamo.getColumnCount(); i++){
-            titulos.add(tbPrestamo.getModel().getValueAt(i,0));
-            fechas.add(tbPrestamo.getModel().getValueAt(i,2));
+        ArrayList<Object> titulos = new ArrayList<>();
+        ArrayList<Object> fechas = new ArrayList<>();
+        for (int i = 0; i < tbPrestamo.getModel().getRowCount(); i++) {
+            titulos.add(tbPrestamo.getModel().getValueAt(i, 0));
+            fechas.add(tbPrestamo.getModel().getValueAt(i, 2));
         }
-        try{
-        ManejadorArchivos.agregarObjeto("Prestamos.poo", new Prestamo(titulos,cbSolicitante.getSelectedItem(),
-                false,LocalDate.now(),fechas));
-        }catch(ClassNotFoundException ex){
+        try {
+            ManejadorArchivos.agregarObjeto("Prestamos.poo", new Prestamo(titulos, cbSolicitante.getSelectedItem(),
+                    false, LocalDate.now(), fechas));
+        } catch (ClassNotFoundException ex) {
             System.out.println("No estaba el archivo");
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
-    private void validMesYDia(int dia, int mes, int anio) throws InvalidDateFormat{
-        if(dia>31||dia<1) throw new InvalidDateFormat("?");
-        if(mes<1||mes>12)throw new InvalidDateFormat("?");
-        if(dia>30&&(mes==2||mes==4||mes==6||mes==9||mes==11)) throw new InvalidDateFormat("?");
-        if(dia>29&&mes==2) throw new InvalidDateFormat("?");
-        if(anio<LocalDate.now().getYear())throw new InvalidDateFormat("?");
+    private void validMesYDia(int dia, int mes, int anio) throws InvalidDateFormat {
+        if (dia > 31 || dia < 1) {
+            throw new InvalidDateFormat("?");
+        }
+        if (mes < 1 || mes > 12) {
+            throw new InvalidDateFormat("?");
+        }
+        if (dia > 30 && (mes == 2 || mes == 4 || mes == 6 || mes == 9 || mes == 11)) {
+            throw new InvalidDateFormat("?");
+        }
+        if (dia > 29 && mes == 2) {
+            throw new InvalidDateFormat("?");
+        }
+        if (anio < LocalDate.now().getYear()) {
+            throw new InvalidDateFormat("?");
+        }
     }
 
     /**
