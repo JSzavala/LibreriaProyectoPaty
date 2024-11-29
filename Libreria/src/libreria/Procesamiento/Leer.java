@@ -11,24 +11,22 @@ public class Leer {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ClassNotFoundException {
-        ArrayList<Object> solicitantes = ManejadorArchivos.leerArchivo("Solicitantes.poo");
+        ArrayList<Object> solicitantes = ManejadorArchivos.leerArchivo("Usuarios.poo");
         // tiratodoyaya
         if (solicitantes != null) {
             for (int i = solicitantes.size() - 1; i >= 0; i--) {
-                ManejadorArchivos.eliminarObjeto("Solicitantes.poo", i);
+                ManejadorArchivos.eliminarObjeto("Usuarios.poo", i);
             }
             System.out.println("que");
         }
         
         //ola(sobreescribe*)
-        Solicitantes jiji = new Solicitantes("jiji");
 
         ArrayList<Object> nuevosSolicitantes = new ArrayList<>();
-        nuevosSolicitantes.add(new Solicitantes("robesgay"));
-        nuevosSolicitantes.add(new Solicitantes("paque"));
+        nuevosSolicitantes.add(new Usuario("Semestre","Semestre3","alabasura"));
         
         for (Object soli : nuevosSolicitantes) {
-            ManejadorArchivos.agregarObjeto("Solicitantes.poo", soli);
+            ManejadorArchivos.agregarObjeto("Usuarios.poo", soli);
             System.out.println(soli);
         }
         System.out.println("-------------------------------");

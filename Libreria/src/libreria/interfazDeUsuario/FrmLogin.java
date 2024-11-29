@@ -11,6 +11,9 @@ package libreria.interfazDeUsuario;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import libreria.Procesamiento.ManejadorArchivos;
+import libreria.Procesamiento.Usuario;
 
 public class FrmLogin extends javax.swing.JFrame {
 
@@ -32,9 +35,9 @@ public class FrmLogin extends javax.swing.JFrame {
 
         btnIniciarSesion = new javax.swing.JButton();
         lblLogin = new javax.swing.JLabel();
-        txtfielUsuario = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         lblUsuario = new javax.swing.JLabel();
-        txtfielContrasenia = new javax.swing.JTextField();
+        txtContrasenia = new javax.swing.JTextField();
         lblContrasenia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,9 +52,9 @@ public class FrmLogin extends javax.swing.JFrame {
         lblLogin.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         lblLogin.setText("LOGIN");
 
-        txtfielUsuario.addActionListener(new java.awt.event.ActionListener() {
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfielUsuarioActionPerformed(evt);
+                txtUsuarioActionPerformed(evt);
             }
         });
 
@@ -69,12 +72,12 @@ public class FrmLogin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblContrasenia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtfielContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnIniciarSesion)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtfielUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 14, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -88,11 +91,11 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addComponent(lblLogin)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtfielUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtfielContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblContrasenia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnIniciarSesion)
@@ -104,14 +107,28 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-        FrmMenu menu = new FrmMenu();
-        menu.setVisible(true);
-        this.dispose();
+        try{
+            ArrayList <Object> usuarios=ManejadorArchivos.leerArchivo("Usuarios.poo");
+            for(Object obj:usuarios){
+                if(((Usuario) obj).getContrasenaEncriptada().equals(txtContrasenia.getText().hashCode()+"")){
+                    FrmMenu menu = new FrmMenu();
+                    menu.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    //notificacion que un dato esta mal
+                }
+            }
+        }catch(Exception ex){
+            
+        }
+        
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    private void txtfielUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfielUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfielUsuarioActionPerformed
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,7 +170,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel lblContrasenia;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblUsuario;
-    private javax.swing.JTextField txtfielContrasenia;
-    private javax.swing.JTextField txtfielUsuario;
+    private javax.swing.JTextField txtContrasenia;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

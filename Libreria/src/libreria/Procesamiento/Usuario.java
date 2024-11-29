@@ -12,24 +12,30 @@ import java.io.Serializable;
  */
 public class Usuario implements Serializable{
     public static final long serialVersionUID=3;
-    private String nombre;
-    private String apellidos;
+    private String nombreUsuario;
+    private String usuario;
     private String contrasenaEncriptada;
-
-    public String getNombre() {
-        return nombre;
+    
+    public Usuario(String nombreUsuario, String usuario, String contrasena){
+        this.nombreUsuario=nombreUsuario;
+        this.usuario=usuario;
+        setContrasenaEncriptada(contrasena);
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getContrasenaEncriptada() {
@@ -37,13 +43,13 @@ public class Usuario implements Serializable{
     }
 
     public void setContrasenaEncriptada(String contrasenaEncriptada) {
-        this.contrasenaEncriptada = contrasenaEncriptada;
+        this.contrasenaEncriptada = contrasenaEncriptada.hashCode()+"";
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "nombre=" + nombre + ", apellidos=" + apellidos + ", contrasenaEncriptada=" + contrasenaEncriptada;
-    }
+    }*/
     
     
 }
