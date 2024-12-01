@@ -18,9 +18,9 @@ public class Prestamo implements Serializable{
     private Object nombreUsuario;
     private boolean devuelto;
     private LocalDate fechaPrestamo;
-    private ArrayList<Object> fechaRegreso;
+    private LocalDate fechaRegreso;
 
-    public Prestamo(ArrayList<Object> nombresLibro, Object nombreUsuario, boolean devuelto, LocalDate fechaPrestamo, ArrayList<Object> fechaRegreso) {
+    public Prestamo(ArrayList<Object> nombresLibro, Object nombreUsuario, boolean devuelto, LocalDate fechaPrestamo, LocalDate fechaRegreso) {
         this.nombresLibro = nombresLibro;
         this.nombreUsuario = nombreUsuario;
         this.devuelto = devuelto;
@@ -60,21 +60,22 @@ public class Prestamo implements Serializable{
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public ArrayList<Object> getFechaRegreso() {
+    public LocalDate getFechaRegreso() {
         return fechaRegreso;
     }
 
-    public void setFechaRegreso(ArrayList<Object> fechaRegreso) {
+    public void setFechaRegreso(LocalDate fechaRegreso) {
         this.fechaRegreso = fechaRegreso;
     }
+
     
     public Object[] toArray(){
         return new Object[]{nombresLibro,nombreUsuario,devuelto,fechaPrestamo,fechaRegreso};
     }
     
-    /*@Override
+    @Override
     public String toString() {
-        return "Prestamo{" + "claveLibro=" + nombreLibro + ", claveUsuario=" + nombreUsuario + ", devuelto=" + devuelto + ", fechaPrestamo=" + fechaPrestamo + ", fechaRegreso=" + fechaRegreso + '}';
-    }*/
+        return "("+fechaPrestamo+") "+ nombreUsuario; 
+    }
     
 }

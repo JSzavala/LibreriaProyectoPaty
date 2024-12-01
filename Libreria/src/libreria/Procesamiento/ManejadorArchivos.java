@@ -146,4 +146,31 @@ public class ManejadorArchivos {
             }
         }
     }
+    public static int getTamanoArchivo(String archivo)throws ClassNotFoundException {
+    ArrayList<Object> objetos = new ArrayList<>();
+        ObjectInputStream ois = null;
+
+        try {
+            FileInputStream fis = new FileInputStream(archivo);
+            ois = new ObjectInputStream(fis);
+            Object objeto;
+
+            while ((objeto = ois.readObject()) != null) {
+                objetos.add(objeto);
+            }
+
+            return objetos.size();
+        } catch (EOFException ex) {
+            return objetos.size();
+        } catch (IOException ex) {
+            return 0;
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (Exception ex) {
+            }
+        }
+    }
 }
