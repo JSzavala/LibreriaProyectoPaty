@@ -51,5 +51,8 @@ public class Usuario implements Serializable{
         return "nombre=" + nombre + ", apellidos=" + apellidos + ", contrasenaEncriptada=" + contrasenaEncriptada;
     }*/
     
+    public Object[] toArray(){
+        return new Object[]{nombreUsuario, usuario, contrasenaEncriptada};
+    }
     
 }
